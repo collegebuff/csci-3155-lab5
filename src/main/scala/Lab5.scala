@@ -310,7 +310,7 @@ object Lab5 extends jsy.util.JsyApplication {
       case If(B(b1), e2, e3) => doreturn( if (b1) e2 else e3 )
       case Obj(fields) if (fields forall { case (_, vi) => isValue(vi)}) =>
         for (a <- Mem.alloc(e)) yield a
-      // DoGetField TODO untested
+      // DoGetField
       case GetField(a @ A(_), f) => doget map { m =>
         m.get(a) match {
           case Some(Obj(fields)) if fields.contains(f) => fields(f)
@@ -340,7 +340,7 @@ object Lab5 extends jsy.util.JsyApplication {
             for (a <- Mem.alloc(v2)) yield substfun(substitute(e1,Unary(Deref,a),x1),p)
 
           // DoCallRef / DoCallRecRef
-          case (Function(p,Right((PRef,x1,typ)),tann,e1),lv2 :: Nil) if isLValue(lv2) => // TODO isLValue
+          case (Function(p,Right((PRef,x1,typ)),tann,e1),lv2 :: Nil) if isLValue(lv2) =>
             doreturn(substfun(substitute(e1,lv2,x1),p))
 
           // SearchCall2
@@ -435,7 +435,6 @@ object Lab5 extends jsy.util.JsyApplication {
         for (e1p <- step(e1)) yield If(e1p, e2, e3)
       case Obj(fields) => fields find { case (_, ei) => !isValue(ei) } match {
         case Some((fi,ei)) =>
-          // TODO untested
           for (eip <- step(ei)) yield Obj(fields + (fi -> eip))
         case None => throw StuckError(e)
       }
