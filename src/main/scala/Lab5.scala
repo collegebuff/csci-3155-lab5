@@ -465,7 +465,7 @@ object Lab5 extends jsy.util.JsyApplication {
 
   /*** External Interfaces ***/
 
-  this.debug = true // comment this out or set to false if you don't want print debugging information
+//  this.debug = true // comment this out or set to false if you don't want print debugging information
   this.maxSteps = Some(500) // comment this out or set to None to not bound the number of steps.
   
   def inferType(e: Expr): Typ = {

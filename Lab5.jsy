@@ -1,0 +1,101 @@
+//var/val test: vars can be reassigned, vals cannot
+var a = 5;
+a = 6;
+
+const b = 5;
+//b = 6;
+//Uncomment the above to watch everything break, 'cause b is immutable! 
+
+console.log("a should equal 6, a equals:");
+console.log(a);
+console.log("b should equal 5 and not throw any errors, b equals:");
+console.log(b);
+
+
+
+
+//Casting test! Should be able to set one object equal to another, so long as it's mutable and the fields allow it.
+
+var c = {x:1, y:"test1", z:3};
+c.x;
+
+var d = {x:4, y:"test2", z:6};
+d.x;
+
+d = c;
+console.log("d.x should equal 1, d.x equals:");
+console.log(d.x);
+console.log("d.y should equal test1, d.y equals:");
+console.log(d.y);
+console.log("d.z should equal 3, d.z equals:");
+console.log(d.z);
+
+
+
+
+//Aliasing test! Straight from the lab. Should print 2, if aliasing is happening.
+
+const x = { f : 1 };
+const y = x;
+x.f = 2;
+console.log("y.f should equal 2, y.f equals:");
+console.log(y.f);
+
+
+//Cumulative test case, that throws all of the above in together! In this case, because alltestb is a var, aliasing should NOT occur.
+
+const alltesta = {x:1, y:"alltogether1", z: 3};
+var alltestb = {x:4, y:"alltogether2", z: 6};
+const alltestc = alltestb;
+alltestb = alltesta;
+console.log("alltestb.x should equal 1, alltestb.x equals:");
+console.log(alltestb.x);
+console.log("alltestb.y should equal alltogether1, alltestb.y equals:");
+console.log(alltestb.y);
+console.log("alltestb.z should equal 3, alltestb.z equals:");
+console.log(alltestb.z);
+console.log("alltestc.y should equal alltogether2, alltestc.y equals:");
+console.log(alltestc.y);
+
+
+//Passing modes! All three tests are the same basic form-pass a var into a function, modify the var within the function, and then test if said modification has impacted the x within the function as well. In the case of pass by name and reference, it will impact the inner x, while in the case of pass by value, it will not. 
+
+//Pass by name:
+console.log('pass by name -- should yield 6.0 and 3.0');
+var passvar = 2;
+function f(name x:number):number{
+passvar = 3;
+console.log(x);
+return 0
+}(2*passvar)
+console.log(passvar);
+
+//Pass by value:
+console.log('pass by value -- should yield 4.0 and 5.0');
+var passvar2 = 4;
+function f(x:number):number{
+passvar2 = 5;
+console.log(x);
+return 0
+}(passvar2)
+console.log(passvar2);
+
+//Pass by reference:
+console.log('pass by ref -- should yield 7.0 and 7.0');
+var passvar3 = 6;
+function f(ref x:number):number{
+passvar3 = 7;
+console.log(x);
+return 0
+}(passvar3)
+console.log(passvar3);
+
+
+// Test null values, casts, pointers
+var a = {val:'test'};
+var b = <{val:string}>null;
+b = a;
+b.val = 'hello';
+console.log(a)
+
+
